@@ -29,6 +29,8 @@ class MyBottombarState extends State<MyBottomNavBar> {
     ..add(PopMenuButton());
   }
 
+  var _pagecontroller=PageController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +40,7 @@ class MyBottombarState extends State<MyBottomNavBar> {
           title: Text('底部导航测试'),
         ),
         body:PageView.builder(
-          controller: PageController(),
+          controller: _pagecontroller,
           physics: NeverScrollableScrollPhysics(),
           onPageChanged: _pageChanged,
           itemCount: _bottomPageList.length,
@@ -63,7 +65,7 @@ class MyBottombarState extends State<MyBottomNavBar> {
               title: Text('个人')
             )
           ],
-          type: BottomNavigationBarType.shifting,
+          type: BottomNavigationBarType.fixed,
           onTap: onTabPaged,
           selectedItemColor: Colors.lightBlueAccent,
           unselectedItemColor: Colors.black,
@@ -83,7 +85,7 @@ class MyBottombarState extends State<MyBottomNavBar> {
 
   }
   void onTabPaged(int index){
-    PageController().jumpToPage(index);
+    _pagecontroller.jumpToPage(index);
 
   }
   getBottomitemBar() {

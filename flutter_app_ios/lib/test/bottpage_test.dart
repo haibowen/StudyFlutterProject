@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_ios/test/expation_title.dart';
@@ -7,13 +5,13 @@ import 'package:flutter_app_ios/test/popmenu_button.dart';
 
 import 'drop_down.dart';
 
-void main()=>runApp(HomeTest());
+void main() => runApp(HomeTest());
+
 class HomeTest extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return _Home();
   }
-
 }
 
 class _Home extends State<HomeTest> {
@@ -28,10 +26,7 @@ class _Home extends State<HomeTest> {
       new PopMenuButton(),
     ];
     super.initState();
-
-
   }
-
 
   @override
   void dispose() {
@@ -44,7 +39,7 @@ class _Home extends State<HomeTest> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home:  Scaffold(
+      home: Scaffold(
         body: PageView.builder(
             controller: _pageController,
             physics: NeverScrollableScrollPhysics(),
@@ -53,12 +48,12 @@ class _Home extends State<HomeTest> {
             itemBuilder: (context, index) => _pages[index]),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _currentIndex,
-          fixedColor: Colors.black,//点击选择
+          //点击选择
           type: BottomNavigationBarType.shifting,
           onTap: onTabTapped,
           items: [
             BottomNavigationBarItem(
-              //backgroundColor: Theme.of(context).appBarTheme.color
+                //backgroundColor: Theme.of(context).appBarTheme.color
                 icon: Icon(Icons.home),
                 title: Text("公会"),
                 backgroundColor: Theme.of(context).appBarTheme.color),
@@ -71,10 +66,13 @@ class _Home extends State<HomeTest> {
                 title: Text("我的"),
                 backgroundColor: Theme.of(context).appBarTheme.color),
           ],
+          selectedItemColor: Colors.lightBlueAccent,
+          unselectedItemColor: Colors.black,
+          showUnselectedLabels: true,
+
         ),
       ),
     );
-
   }
 
   void _pageChanged(int index) {
