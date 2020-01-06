@@ -53,7 +53,7 @@ class MyBottombarState extends State<MyBottomNavBar> {
         bottomNavigationBar: BottomNavigationBar(
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(Icons.home,),
+              icon: Icon(Icons.home),
               title: Text('主页')
             ),
             BottomNavigationBarItem(
@@ -88,21 +88,5 @@ class MyBottombarState extends State<MyBottomNavBar> {
     _pagecontroller.jumpToPage(index);
 
   }
-  getBottomitemBar() {
-    return bottomebaritem
-      ..add(
-          BottomNavigationBarItem(
-            icon: Icon(Icons.forward),
-            title: Text('主页'),
-          ))
-      ..add(BottomNavigationBarItem(
-          icon: Icon(Icons.arrow_downward),
-          title: Text('个人')))
-      ..add(BottomNavigationBarItem(
-          icon: Icon(Icons.new_releases),
-          title: Text('活动')))
-      ..add(BottomNavigationBarItem(
-          icon: Icon(Icons.verified_user),
-          title: Text('商业')));
-  }
+
 }
