@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_ios/test/path_file.dart';
 import 'package:flutter_app_ios/test/popmenu_button.dart';
 
 import 'home.dart';
@@ -26,7 +27,7 @@ class MyBottombarState extends State<MyBottomNavBar> {
     super.initState();
     _bottomPageList..add(Home())
     ..add(ExpansionTileSample())
-    ..add(PopMenuButton());
+    ..add(FlutterDemo());
   }
 
   var _pagecontroller=PageController();
@@ -47,9 +48,7 @@ class MyBottombarState extends State<MyBottomNavBar> {
           itemBuilder: (context,index)=>_bottomPageList[index],
            ),
 
-        floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
-        ),
+
         bottomNavigationBar: BottomNavigationBar(
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
