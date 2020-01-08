@@ -28,6 +28,9 @@ dependencies:
   #文件读写
   path_provider: ^1.5.1
 
+  #markdown
+  flutter_markdown: ^0.3.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
