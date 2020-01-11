@@ -1,0 +1,304 @@
+import 'dart:convert';
+import 'dart:math';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:vue2dart_dynamic_app/common/net/net_util.dart';
+import 'package:vue2dart_dynamic_app/common/widget/dynamic_container.dart';
+import 'package:vue2dart_dynamic_app/page/qrcode_scan_page/index.dart';
+import 'package:vue2dart_dynamic_app/parse_factory/vue2dart_factory/vue2dart_factory.dart';
+import 'package:vue2dart_dynamic_app/parse_factory/workspace.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
+
+class DemoListPage extends StatefulWidget {
+  @override
+  _DemoListPageState createState() => _DemoListPageState();
+}
+
+class _DemoListPageState extends State<DemoListPage> {
+  String baseUrl;
+  List<dynamic> imgaList = List();
+  List<dynamic> dirList = []; //具体的目录
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    imgaList..add(Image.network(
+      'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=653666270,723497068&fm=26&gp=0.jpg',
+      fit: BoxFit.fill,
+    ))..add(Image.network(
+      'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1578041900497&di=c03c5c92382a4b79c4e28ca5719d4be3&imgtype=jpg&src=http%3A%2F%2Fimg4.imgtn.bdimg.com%2Fit%2Fu%3D611257814%2C670319446%26fm%3D214%26gp%3D0.jpg',
+      fit: BoxFit.fill,
+    ));
+    //getAllDirectory();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    print("========1111===s");
+    return Scaffold(
+        appBar: getAppbar(),
+        body: ListView(
+          children: <Widget>[getBanner(), getListBuilder()],
+        ));
+  }
+
+  //获取服务端的目录
+  Future<Object> getAllDirectory() async {
+    var result;
+    var allDirectoryUrl = "http://localhost:3000/allDirectory";
+    result = await netUtil.get(allDirectoryUrl);
+    dirList = JsonDecoder().convert(result);
+    print(dirList[0] + "########################3");
+    return dirList;
+  }
+
+  ///获取目录下具体的文件
+  Future<Object> getDirPage(int index) async {
+    var resultDir;
+    var result;
+    if (baseUrl != null) {
+      Vue2DartFactory.instance.settingWorkSpace(WorkSpace(baseUrl));
+      var allDirPath = baseUrl.replaceAll("www/", "allDirectory");
+      resultDir = await netUtil.get(allDirPath);
+      if(dirList.length ==0){
+        setState(() {
+          dirList = JsonDecoder().convert(resultDir);
+        });
+      }
+      if (dirList != null) {
+        var filter = dirList[index];
+        var allPagePath = baseUrl.replaceAll("www/", "page/$filter");
+        result = await netUtil.get(allPagePath);
+        List<dynamic> map = JsonDecoder().convert(result);
+        return map;
+      }
+      return null;
+    }
+  }
+    //获取所有文件
+    Future<Object> getAllPage() async {
+      var result;
+      if (baseUrl != null) {
+        Vue2DartFactory.instance.settingWorkSpace(WorkSpace(baseUrl));
+        var allPagePath = baseUrl.replaceAll("www/", "all");
+        result = await netUtil.get(allPagePath);
+        List<dynamic> map = JsonDecoder().convert(result);
+        return map;
+      }
+      return null;
+    }
+
+    ///appbar
+    Widget getAppbar() {
+      return AppBar(
+        title: Text("Flutter转换引擎调试平台"),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(IconData(0xe659, fontFamily: "BaseIcon")),
+            onPressed: () {
+              Future future = Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => QrCodeScanPage()));
+              future.then((value) {
+                print(value);
+                setState(() {
+                  baseUrl = value;
+                });
+              });
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.autorenew),
+            onPressed: () {
+              setState(() {});
+            },
+          ),
+        ],
+      );
+    }
+
+    ///轮播图设置
+    Widget getBanner() {
+      return Container(
+        padding: const EdgeInsets.fromLTRB(0, 2, 0, 2),
+        width: MediaQuery
+            .of(context)
+            .size
+            .width,
+        height: 200,
+        child: Swiper(
+          itemCount: 2,
+          pagination: SwiperPagination(
+              alignment: Alignment.bottomCenter,
+              margin: const EdgeInsets.fromLTRB(0, 0, 20, 10),
+              builder: DotSwiperPaginationBuilder(
+                  color: Colors.black54, activeColor: Colors.white)),
+          controller: SwiperController(),
+          scrollDirection: Axis.horizontal,
+          autoplay: true,
+          itemBuilder: (BuildContext context, int index) {
+            return Card(
+              elevation: 10.0,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10.0))), //设置圆角
+              child: imgaList[index],
+            );
+          },
+        ),
+      );
+    }
+
+    Widget getListBuilder() {
+      return ListView.builder(
+        physics: NeverScrollableScrollPhysics(),
+        itemBuilder: getListItem,
+        itemCount: dirList.length == 0 ? 1 : dirList.length,
+        scrollDirection: Axis.vertical,
+        shrinkWrap: true,
+      );
+    }
+
+    ///页面的侧滑
+    Widget getDrawer() {
+      return Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.lightBlueAccent,
+              ),
+              child: Center(
+                child: SizedBox(
+                  width: 80.0,
+                  height: 80.0,
+                  child: CircleAvatar(
+                    child: Text('Flutter'),
+                  ),
+                ),
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.settings),
+              title: Text('设置'),
+            ),
+            ListTile(
+              leading: Icon(Icons.home),
+              title: Text('主页'),
+            ),
+            ListTile(
+              leading: Icon(Icons.map),
+              title: Text('指南'),
+            ),
+            ListTile(
+              leading: Icon(Icons.mobile_screen_share),
+              title: Text('模式'),
+            ),
+            ListTile(
+              leading: Icon(Icons.exit_to_app),
+              title: Text('退出'),
+            )
+          ],
+        ),
+      );
+    }
+
+    //listView的item
+    Widget getListItem(BuildContext context, int index) {
+      return FutureBuilder(
+        future: getDirPage(index),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.hasData) {
+            List<Widget> listText = [];
+            for (Map map in snapshot.data) {
+              String filename = map["filename"];
+              String url = map["path"] + map["filename"];
+              if (filename == ".DS_Store") continue;
+              listText.add(GestureDetector(
+                child: ListTile(
+                  leading: Icon(Icons.content_paste),
+                  title: Text(filename),
+                ),
+                onTap: () {
+                  tapHandle(url);
+                },
+              ));
+            }
+            return SingleChildScrollView(
+              child: ExpansionTile(
+                title: Text(dirList[index]),
+                leading: Icon(
+                  Icons.add,
+                  color: Colors.lightBlueAccent,
+                ),
+                onExpansionChanged: (isExpansion){
+                  print(isExpansion);
+                  //
+                },
+                children: listText,
+              ),
+            );
+          } else if (snapshot.hasError) {
+            return Center(
+                child: Text("网络开了小差请重试！确保手机和电脑处于一个WiFi！",
+                    style: TextStyle(fontSize: 20)));
+          }
+//        if (index > 0) {
+//          return Container(
+//            height: 0,
+//            width: 0,
+//          );
+//        }
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Image.asset('lib/images/error_icon.png'),
+                Text(
+                  "点击右上角扫一扫",
+                  style: TextStyle(fontSize: 20),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(5),
+                ),
+                CupertinoButton(
+                  onPressed: () {
+                    setState(() {
+                      baseUrl = "http://localhost:3000/www/";
+                    });
+                  },
+                  child: Text("使用虚拟机"),
+                ),
+              ],
+            ),
+          );
+        },
+      );
+    }
+
+  tapHandle(String url) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                DynamicContainerWidget(
+                  widgetPath: url,
+                )));
+  }
+
+  Color getRandomColors() {
+    return colorList[Random().nextInt(9)];
+  }
+}
+
+final List<Color> colorList = [
+  Colors.red,
+  Colors.orange,
+  Colors.green,
+  Colors.purple,
+  Colors.blue,
+  Colors.yellow,
+  Colors.pink,
+  Colors.teal,
+  Colors.deepPurpleAccent
+];
