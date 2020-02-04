@@ -53,13 +53,14 @@ class HomeState extends State<Home> {
             ),
             Container(
               height: 800,
+
               child: GridView(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 4,
                 ),
                 children: <Widget>[
                   Container(
-                    color: Colors.yellow,
+                    color: Colors.black,
                   ),
                   Container(
                     color: Colors.yellow,
