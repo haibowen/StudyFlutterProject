@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -35,6 +36,28 @@ class HomePage extends StatelessWidget {
             ),
             width: MediaQuery.of(context).size.width / 6,
           ),
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(
+              icon: Badge(
+                badgeContent: Text('12'),
+                child: Icon(Icons.account_balance),
+              ),
+              title: Text('异常信息')),
+          BottomNavigationBarItem(
+              icon: Badge(
+                badgeContent: Text(''),
+                child: Icon(Icons.account_balance),
+              ),
+              title: Text('异常信息')),
+          BottomNavigationBarItem(
+              icon: Badge(
+                badgeContent: Text('12'),
+                child: Icon(Icons.account_balance),
+              ),
+              title: Text('异常信息')),
         ],
       ),
     );
