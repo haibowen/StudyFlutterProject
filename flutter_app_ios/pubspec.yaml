@@ -36,6 +36,8 @@ dependencies:
   badges: ^1.1.0
   #文字轮播
   marquee_flutter: ^0.1.4
+  #占位图
+  cached_network_image: ^2.0.0
 
 dev_dependencies:
   flutter_test:
