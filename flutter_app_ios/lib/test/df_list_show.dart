@@ -15,16 +15,16 @@ class Show extends StatefulWidget {
 }
 
 class ShowState extends State<Show> {
-  List list = new List(); //列表要展示的数据
-  int _page = 1; //加载的页数
-  bool isLoading = false; //是否正在加载数据
-  bool isFinished = false; //是否加载完毕
-  ScrollController _scrollController = ScrollController(); //listview的控制器
+ List list = new List(); //列表要展示的数据
+//  int _page = 1; //加载的页数
+//  bool isLoading = false; //是否正在加载数据
+//  bool isFinished = false; //是否加载完毕
+//  ScrollController _scrollController = ScrollController(); //listview的控制器
 
 
   int get count => list.length;
 
-  List<int> listt = [];
+  //List<int> listt = [];
 
 
   void load() {
@@ -40,6 +40,17 @@ class ShowState extends State<Show> {
     load();
     return true;
   }
+
+  Future<bool> _loadMoreTest() async {
+    print("onLoadMore");
+    await Future.delayed(Duration(seconds: 0, milliseconds: 2000));
+    //load();
+    setState(() {
+
+    });
+    return true;
+  }
+
 
   Future<void> _refresh() async {
     await Future.delayed(Duration(seconds: 0, milliseconds: 2000));
@@ -59,34 +70,78 @@ class ShowState extends State<Show> {
         appBar: AppBar(
           title: Text('DFList测试'),
         ),
-        body:Container(
-
-          child:RefreshIndicator(
-            child:DFList(
-              isFinish: count>=60,
-              onLoadMore: _loadMore,
-              child: ListView.builder(
-                itemBuilder:(BuildContext context,int index){
-                  return ListTile(
-                    title: Text('$index'),
-                  );
-
-                },
-                itemCount: count,),
-
-              whenEmptyLoad: false,
-              delegate: DefaultLoadMoreDelegate(),
-              textBuilder: DefaultLoadMoreTextBuilder.chinese,
-              finishedText: '加载结束了',
-              errorText: "加载失败，点击重试一下",) ,
-            onRefresh: _refresh,
-          )
-
-
-        )
+        body:getTestWidget()
 
       ),
     );
+  }
+
+
+  Widget getTestWidget(){
+    return Container(
+
+        child:RefreshIndicator(
+          child:DFList(
+            isFinish: count>=60,
+            onLoadMore: _loadMore,
+            child: ListView(
+              children: <Widget>[
+                Text("11111"),
+                Text("11111"),
+                Text("11111"),
+                Text("11111"),
+                Text("11111"),
+                Text("11111"),
+                Text("11111"),
+                Text("11111"),
+                Text("11111"),
+                Text("11111"),
+                Text("11111"),
+                Text("11111"),
+                Text("11111"),
+              ],
+            ),
+
+            whenEmptyLoad: false,
+            delegate: DefaultLoadMoreDelegate(),
+            textBuilder: DefaultLoadMoreTextBuilder.chinese,
+            finishedText: '加载结束了',
+            errorText: "加载失败，点击重试一下",) ,
+          onRefresh: _refresh,
+        )
+
+
+    );
+  }
+  Widget getMoreWidget(){
+
+    return Container(
+
+        child:RefreshIndicator(
+          child:DFList(
+            isFinish: count>=60,
+            onLoadMore: _loadMore,
+            child: ListView.builder(
+              itemBuilder:(BuildContext context,int index){
+                return ListTile(
+                  title: Text('$index'),
+                );
+
+              },
+              itemCount: count,),
+
+            whenEmptyLoad: false,
+            delegate: DefaultLoadMoreDelegate(),
+            textBuilder: DefaultLoadMoreTextBuilder.chinese,
+            finishedText: '加载结束了',
+            errorText: "加载失败，点击重试一下",) ,
+          onRefresh: _refresh,
+        )
+
+
+    );
+
+
   }
 }
 
