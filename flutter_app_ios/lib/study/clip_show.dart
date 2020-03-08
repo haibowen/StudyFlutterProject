@@ -15,6 +15,12 @@ class MyAppbar extends StatefulWidget {
 }
 
 class MyAppbarState extends State<MyAppbar> {
+
+  Widget image= Image(
+    image: AssetImage('images/google_photo.png'),
+    width: 200.0,
+    height: 200.0,
+  );
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -32,7 +38,21 @@ class MyAppbarState extends State<MyAppbar> {
                 });
           }),
         ),
-        body: Container(),
+        body: Container(
+          child: Column(
+            children: <Widget>[
+              image,
+              ClipOval(
+                child: image,
+              ),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(5.0),
+                child:image,
+
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
