@@ -24,41 +24,43 @@ class HomePage extends State<GetWidgetWidthAndHeiget> {
           appBar: AppBar(
             title: Text('测试'),
           ),
-          body: SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                Switch(
-                  value: switched,
-                  onChanged: (va) {
-                    setState(() {
-                      switched = va;
-                    });
-                  },
+          body:Container(
+            margin: EdgeInsets.only(top: 150.0,left: 150),
+            constraints: BoxConstraints.tightFor(width: 200.0,height: 150.0),
+            decoration: BoxDecoration(
+//              gradient: RadialGradient(
+//                colors: [Colors.red,Colors.orange],
+//                center: Alignment.topLeft,
+//                radius: .98,
+//
+//
+//              ),
+                gradient: RadialGradient(
+                  colors: [Colors.red,Colors.orange],
+                  center: Alignment.topLeft,
+                  radius: .68
                 ),
-                SizedBox(
-                  width: 120,
-                  child:  Switch(
-                    value: switched,
-                    onChanged: (va) {
-                      setState(() {
-                        switched = va;
-                      });
-                    },
-                  ),
-                ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black26,
+                  offset: Offset(2.0,2.0),
+                  blurRadius: 4.0,
 
-                Checkbox(
-                  tristate: true,
-                  value: checkbox,
-                  onChanged: (va) {
-                    setState(() {
-                      checkbox = va;
-                    });
-                  },
-                ),
-              ],
+                )
+              ]
             ),
-          )),
+            transform: Matrix4.rotationZ(.2),
+            alignment: Alignment.center,
+            child: Text(
+              '5.20',style: TextStyle(
+              color: Colors.white,fontSize: 44.0
+            ),
+            ),
+
+
+
+          ),
+      )
     );
   }
 }
