@@ -6,7 +6,21 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 //这里的使用是有问题的，待后续继续完善使用
 
 void main() {
-  runApp(DateTimePickerShow());
+  runApp(DateTimeTest());
+}
+
+
+class DateTimeTest extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+
+  return MaterialApp(
+    home: DateTimePickerShow(),
+  );
+  }
+
+
+
 }
 
 class DateTimePickerShow extends StatefulWidget {
@@ -21,8 +35,7 @@ class DateTimePickerShow extends StatefulWidget {
 class DateTimePickerShowState extends State<DateTimePickerShow> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
+      return Scaffold(
         appBar: AppBar(
           title: Text('日期'),
         ),
@@ -40,23 +53,49 @@ class DateTimePickerShowState extends State<DateTimePickerShow> {
                     locale: LocaleType.zh);
               },
               child: Text(
-                'show time picker',
+                'show date picker',
                 style: TextStyle(color: Colors.blue),
               ),
             ),
 
-            FlatButton(
-              onPressed: () {},
-              child: Text(
-                '显示',
-                style: TextStyle(color: Colors.lightBlue),
-              ),
-            ),
 
 //
+          FlatButton(
+            onPressed: (){
+              DatePicker.showTimePicker(context,
+              showTitleActions: true,
+              currentTime: DateTime.now(),
+              locale: LocaleType.zh,
+              onConfirm: (data){
+
+
+              },
+              onChanged: (va){
+
+              },
+              );
+
+            },
+            child:  Text('show time'),
+          ),
+            FlatButton(
+              onPressed: (){
+                DatePicker.showDateTimePicker(context,
+                showTitleActions: true,
+                currentTime: DateTime.now(),
+                locale: LocaleType.zh,
+                onChanged: (va){
+
+                },
+                onConfirm: (data){
+
+                });
+              },
+              child: Text('显示'),
+            ),
+            FlatButton(),
           ],
         ),
-      ),
     );
   }
 }
