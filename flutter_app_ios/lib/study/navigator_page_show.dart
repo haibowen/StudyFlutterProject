@@ -37,17 +37,21 @@ class NavigatorPageShowState extends State<NavigatorPageShowBody> {
         children: <Widget>[
           FlatButton(
             onPressed: () {
-              Navigator.push(
-                  context,
-                  PageRouteBuilder(
-                      transitionDuration: Duration(milliseconds: 1500),
-                      pageBuilder: (BuildContext context, Animation animation,
-                          Animation secondaryAnimation) {
-                        return new FadeTransition(
-                          opacity: animation,
-                          child: NavigatorPageShow2(),
-                        );
-                      }));
+              Navigator.push(context, new MaterialPageRoute(builder: (context){
+                return NavigatorPageShow2();
+              }));
+
+//              Navigator.push(
+//                  context,
+//                  PageRouteBuilder(
+//                      transitionDuration: Duration(milliseconds: 1500),
+//                      pageBuilder: (BuildContext context, Animation animation,
+//                          Animation secondaryAnimation) {
+//                        return new FadeTransition(
+//                          opacity: animation,
+//                          child: NavigatorPageShow2(),
+//                        );
+//                      }));
             },
             child: Text('唤起'),
           ),
