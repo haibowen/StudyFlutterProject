@@ -78,14 +78,7 @@ class TextShowState extends State<TextShow> {
                 itemCount: 12,
                 controller: ScrollController(),
               ),
-              DFListThird(onRefresh: null, itemBuilder: null, itemCount: null,
-              onLoading:(va){
 
-              },
-              controller: ,
-              isFinished: ,
-              loading: ,
-              )
 
             ],
           )),

@@ -27,19 +27,31 @@ class TagShowState extends State<TagShow> {
         appBar: AppBar(
           title: Text('显示'),
         ),
-        body: InkWell(
-          child: getVisibleWidget(data),
-          onTap: () {
-            setState(() {
-              data = "22";
-            });
-          },
+        body:Column(
+          children: <Widget>[
+            InkWell(
+              child: getVisibleWidget(data),
+              onTap: () {
+                setState(() {
+                  data = "22";
+                });
+              },
+            ),
+            LinearProgressIndicator(
+              value:0.5 ,
+              backgroundColor: Colors.red,
+
+            ),
+
+          ],
         ),
+
       ),
     );
   }
 
   Widget getVisibleWidget(String data) {
+
     var contentShow;
     if (data == "111") {
       contentShow = Text('1111');
