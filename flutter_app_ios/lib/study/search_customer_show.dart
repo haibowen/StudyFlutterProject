@@ -81,7 +81,7 @@ class TestShowState extends State<TestShow> {
                             controller: _controller,
                             textAlign: TextAlign.center,
                             decoration: InputDecoration(
-                              suffixIcon: _controller.text.length>0
+                              suffixIcon: _controller.text.length > 0
                                   ? IconButton(
                                       icon: Icon(Icons.cancel),
                                       onPressed: () {
@@ -90,10 +90,11 @@ class TestShowState extends State<TestShow> {
 //                                    _controller.clear();
 //                                  }
 
-                                      setState(() {
-                                        _inputText = "";
-                                        _hasdeleteIcon = (_inputText.isNotEmpty);
-                                      });
+                                        setState(() {
+                                          _inputText = "";
+                                          _hasdeleteIcon =
+                                              (_inputText.isNotEmpty);
+                                        });
 //                                        Future.delayed(
 //                                                Duration(milliseconds: 50))
 //                                            .then((_) {
@@ -157,19 +158,15 @@ class TestShowState extends State<TestShow> {
                 ),
               ],
             ),
-
-
             ITextField(
-
-                keyboardType: ITextInputType.text,
-                hintText: '请输入手机号',
-                hintStyle: TextStyle(color: Colors.white),
-                textStyle: TextStyle(color: Colors.black),
-                fieldCallBack: (content) {
+              keyboardType: ITextInputType.text,
+              hintText: '请输入手机号',
+              hintStyle: TextStyle(color: Colors.white),
+              textStyle: TextStyle(color: Colors.black),
+              fieldCallBack: (content) {
 //                  _phoneNumber = content;
 //                  print(_phoneNumber);
-                },
-
+              },
             ),
           ],
         ),
