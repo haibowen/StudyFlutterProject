@@ -1,6 +1,7 @@
 package com.example.flutter_app_ios
 
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugins.GeneratedPluginRegistrant
@@ -10,3 +11,4 @@ class MainActivity: FlutterActivity() {
         GeneratedPluginRegistrant.registerWith(flutterEngine);
     }
 }
+
