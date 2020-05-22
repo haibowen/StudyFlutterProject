@@ -47,6 +47,12 @@ dependencies:
   permission_handler: ^5.0.0+hotfix.3
   #videoPlayer
   video_player: ^0.10.10
+#  #ijkplayer
+#  fijkplayer: ^0.8.2
+  fijkplayer:
+    git:
+      url: https://github.com/befovy/fijkplayer.git
+      ref: develop # can be replaced to branch or tag name
   #城市选择器
   city_pickers: ^0.0.1
   flutter_picker:
@@ -56,7 +62,19 @@ dependencies:
   gzx_dropdown_menu:
     git:
       url: https://github.com/GanZhiXiong/gzx_dropdown_menu.git
+#  #组件库的使用
+#  fluttergracefulwidget:
+#    git:
+#      url: https://github.com/haibowen/flutter_graceful_widget.git
 
+  graceful_widget_plugin:
+    git:
+      url: https://github.com/haibowen/graceful_widget_plugin.git
+
+   #日历组件
+  flutter_custom_calendar:
+    git:
+      url: https://github.com/LXD312569496/flutter_custom_calendar.git
 dev_dependencies:
   flutter_test:
     sdk: flutter
