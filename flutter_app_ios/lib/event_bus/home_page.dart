@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_ios/event_bus/user_page.dart';
 import 'package:flutter_app_ios/provider/user_page.dart';
 import 'package:flutter_app_ios/test/app.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 import 'event_bus.dart';
 import 'get_value_event.dart';
@@ -102,7 +103,18 @@ class MyHomeState extends State<MyHome>{
           RaisedButton(
             child: Text('改变'),
             onPressed: (){
-              eventBus.fire(ValueChange(true));
+              if(isTrue==false){
+                eventBus.fire(ValueChange(true));
+
+              }
+            },
+          ),
+          RaisedButton(
+            child: Text('改变'),
+            onPressed: (){
+              if(isTrue==true){
+                eventBus.fire(ValueChange(false));
+              }
             },
           ),
         ],
